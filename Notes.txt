@@ -1,0 +1,33 @@
+# Create a virtualenv to isolate our package dependencies locally
+virtualenv -p /usr/bin/python3 env
+
+# Activating the virtualenv
+source env/bin/activate  
+
+# Deactivate the virtualenv
+deactivate 
+
+# Install Django and Django REST framework into the virtualenv
+pip install django
+pip install djangorestframework
+
+# Set up a new project with a single application
+django-admin.py startproject tutorial .  # Note the trailing '.' character (This specifies the current directory)
+
+cd tutorial
+django-admin.py startapp quickstart
+
+#Now sync your database for the first time:
+python manage.py migrate
+
+
+# Creating syperuser
+python manage.py createsuperuser
+
+
+# We can now access our API, both from the command-line, using tools like curl...
+
+bash: curl -H 'Accept: application/json; indent=4' -u admin:password123 http://127.0.0.1:8000/users/
+
+# Or directly through the browser, by going to the URL 
+http://127.0.0.1:8000/users/
