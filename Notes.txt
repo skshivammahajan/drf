@@ -93,3 +93,18 @@ It's important to remember that ModelSerializer classes don't do anything partic
 
 An automatically determined set of fields.
 Simple default implementations for the create() and update() methods.
+
+#Request objects
+request.data  # Handles arbitrary data.  Works for 'POST', 'PUT' and 'PATCH' methods.
+
+# Response objects
+return Response(data)  # Renders to content type as requested by the client.
+
+#Status codes
+such as HTTP_400_BAD_REQUEST in the status module
+
+#Wrapping API views
+REST framework provides two wrappers you can use to write API views.
+
+The @api_view decorator for working with function based views.
+The APIView class for working with class-based views.
