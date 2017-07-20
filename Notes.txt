@@ -108,3 +108,9 @@ REST framework provides two wrappers you can use to write API views.
 
 The @api_view decorator for working with function based views.
 The APIView class for working with class-based views.
+
+
+# Using Mixins
+ We're building our view using GenericAPIView, and adding in ListModelMixin and CreateModelMixin.
+
+The base class provides the core functionality, and the mixin classes provide the .list() and .create() actions
