@@ -79,3 +79,17 @@ serializer.data
 # Note:
 The create() and update() methods define how fully fledged instances are created or modified when calling serializer.save()
 
+
+# you can inspect all the fields in a serializer instance, by printing its representation. 
+python manage.py shell
+from snippets.serializers import SnippetSerializer
+
+serializer = SnippetSerializer()
+print(repr(serializer))
+
+# Model Serializer
+
+It's important to remember that ModelSerializer classes don't do anything particularly magical, they are simply a shortcut for creating serializer classes:
+
+An automatically determined set of fields.
+Simple default implementations for the create() and update() methods.
