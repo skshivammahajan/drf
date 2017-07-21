@@ -119,3 +119,13 @@ The base class provides the core functionality, and the mixin classes provide th
 # Permissions
 REST framework includes a number of permission classes that we can use to restrict who can access a given view. In this case the one we're looking for is IsAuthenticatedOrReadOnly, which will ensure that authenticated requests get read-write access, and unauthenticated requests get read-only access.
 
+
+# HyperlinkedModelSerializer
+The HyperlinkedModelSerializer has the following differences from ModelSerializer:
+
+It does not include the id field by default.
+It includes a url field, using HyperlinkedIdentityField.
+Relationships use HyperlinkedRelatedField, instead of PrimaryKeyRelatedField.
+
+# Viewsets
+ViewSet classes are almost the same thing as View classes, except that they provide operations such as read, or update, and not method handlers such as get or put.
