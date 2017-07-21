@@ -129,3 +129,7 @@ Relationships use HyperlinkedRelatedField, instead of PrimaryKeyRelatedField.
 
 # Viewsets
 ViewSet classes are almost the same thing as View classes, except that they provide operations such as read, or update, and not method handlers such as get or put.
+
+ UserList and UserDetail views into a single UserViewSet
+
+ class UserViewSet(viewsets.ReadOnlyModelViewSet):
