@@ -28,6 +28,9 @@ from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 
 
+#_________________________________________________________________________
+#_________________________________________________________________________
+# Simple Django Views
 # @csrf_exempt
 # def snippet_list(request):
 #     """
@@ -45,7 +48,9 @@ from rest_framework.decorators import detail_route
 #             serializer.save()
 #             return JsonResponse(serializer.data, status=201)
 #         return JsonResponse(serializer.errors, status=400)
-
+#_________________________________________________________________________
+#_________________________________________________________________________
+# Function Based API View
 # @api_view(['GET', 'POST'])
 # def snippet_list(request):
 #     """
@@ -63,7 +68,9 @@ from rest_framework.decorators import detail_route
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+#_________________________________________________________________________
+#_________________________________________________________________________
+# Class Based API View
 # class SnippetList(APIView):
 #     """
 #     List all snippets, or create a new snippet.
@@ -80,7 +87,9 @@ from rest_framework.decorators import detail_route
 #             serializer.save()
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+#_________________________________________________________________________
+#_________________________________________________________________________
+# Mixins
 # class SnippetList(mixins.ListModelMixin,
 #                   mixins.CreateModelMixin,
 #                   generics.GenericAPIView):
@@ -92,16 +101,21 @@ from rest_framework.decorators import detail_route
 
 #     def post(self, request, *args, **kwargs):
 #         return self.create(request, *args, **kwargs)
+#_________________________________________________________________________
+#_________________________________________________________________________
+# Generic View
+# class SnippetList(generics.ListCreateAPIView):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+#     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-class SnippetList(generics.ListCreateAPIView):
-    queryset = Snippet.objects.all()
-    serializer_class = SnippetSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+#     def perform_create(self, serializer):
+#         serializer.save(owner=self.request.user)
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
+#_________________________________________________________________________
+#_________________________________________________________________________
+#_________________________________________________________________________
+#_________________________________________________________________________
 # @csrf_exempt
 # def snippet_detail(request, pk):
 #     """
@@ -127,8 +141,8 @@ class SnippetList(generics.ListCreateAPIView):
 #     elif request.method == 'DELETE':
 #         snippet.delete()
 #         return HttpResponse(status=204)
-
-
+#_________________________________________________________________________
+#_________________________________________________________________________
 # @api_view(['GET', 'PUT', 'DELETE'])
 # def snippet_detail(request, pk):
 #     """
@@ -153,7 +167,8 @@ class SnippetList(generics.ListCreateAPIView):
 #     elif request.method == 'DELETE':
 #         snippet.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
-
+#_________________________________________________________________________
+#_________________________________________________________________________
 # class SnippetDetail(APIView):
 #     """
 #     Retrieve, update or delete a snippet instance.
@@ -182,7 +197,8 @@ class SnippetList(generics.ListCreateAPIView):
 #         snippet = self.get_object(pk)
 #         snippet.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
-
+#_________________________________________________________________________
+#_________________________________________________________________________
 # class SnippetDetail(mixins.RetrieveModelMixin,
 #                     mixins.UpdateModelMixin,
 #                     mixins.DestroyModelMixin,
@@ -198,12 +214,16 @@ class SnippetList(generics.ListCreateAPIView):
 
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
-
+#_________________________________________________________________________
+#_________________________________________________________________________
 # class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = Snippet.objects.all()
 #     serializer_class = SnippetSerializer
 #     permission_classes = (
 #         permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+#_________________________________________________________________________
+#_________________________________________________________________________
 
 class SnippetViewSet(viewsets.ModelViewSet):
     """
@@ -225,6 +245,9 @@ class SnippetViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+#_________________________________________________________________________
+#_________________________________________________________________________
+
 # class UserList(generics.ListAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
@@ -241,14 +264,8 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-# @api_view(['GET'])
-# def api_root(request, format=None):
-#     return Response({
-#         'users': reverse('user-list', request=request, format=format),
-#         'snippets': reverse('snippet-list', request=request, format=format)
-#     })
+#_________________________________________________________________________
+#_________________________________________________________________________
 
 
 class SnippetHighlight(generics.GenericAPIView):
@@ -258,3 +275,10 @@ class SnippetHighlight(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         snippet = self.get_object()
         return Response(snippet.highlighted)
+
+# @api_view(['GET'])
+# def api_root(request, format=None):
+#     return Response({
+#         'users': reverse('user-list', request=request, format=format),
+#         'snippets': reverse('snippet-list', request=request, format=format)
+#     })

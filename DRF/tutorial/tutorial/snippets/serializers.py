@@ -34,6 +34,8 @@ from django.contrib.auth.models import User
 #         instance.save()
 #         return instance
 
+#_________________________________________________________________________
+#_________________________________________________________________________
 
 # Model Serializer
 # class SnippetSerializer(serializers.ModelSerializer):
@@ -53,6 +55,8 @@ from django.contrib.auth.models import User
 #         model = User
 #         fields = ('id', 'username', 'snippets')
 
+#_________________________________________________________________________
+#_________________________________________________________________________
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
